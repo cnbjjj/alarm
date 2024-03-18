@@ -28,12 +28,14 @@ function setAlarm() {
     if (!valid(alarmHour) || !valid(alarmMinutes)) return;
     alarmDisplay.innerText = `${alarmHour.value} : ${alarmMinutes.value}`;
     alarmHour.value = alarmMinutes.value = '';
+    query('main').classList.add('on');
 }
 function updateClock() {
     const [hours, minutes, seconds] = new Date().toTimeString().split(" ")[0].split(":");
     nowDisplay.innerHTML = `${hours} <span class="${parseInt(seconds) % 2 === 0 ? "hidden" : ""}">:</span> ${minutes}`;
     if (alarmDisplay.innerText !== '' && nowDisplay.innerText === alarmDisplay.innerText) {
         alarmDisplay.innerText = '';
+        query('main').classList.remove('on');
         alarmAudio.play();
     }
 }
