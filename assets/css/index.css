@@ -97,3 +97,15 @@ input {
 ::placeholder {
     color: var(--placeholder-color)
 }
+
+.error {
+    color: rgba(255, 0, 0, 0.678);
+    font-size: 18px;
+    margin-top: 10px;
+    display: inline-block;
+    visibility: hidden;
+
+    &.on {
+        visibility: visible;
+    }
+}

@@ -19,13 +19,19 @@ function valid(input) {
 /* 
     Main
 */
+function error() {
+    clearTimeout(timeoutId.error);
+    timeoutId.error = setTimeout(() => query('.error').classList.remove('on'), 1500);
+    return query('.error').classList.add('on');
+}
 function keyUp(event) {
     const element = event.target;
     if (element.getAttribute('type') !== 'text') return;
     element.value = element.value.replace(/\D/g, '');
+    element.value = parseInt(element.value) >= element.getAttribute('data-max') ? '' : element.value;
 }
 function setAlarm() {
-    if (!valid(alarmHour) || !valid(alarmMinutes)) return;
+    if (!valid(alarmHour) || !valid(alarmMinutes)) return error();
     alarmDisplay.innerText = `${alarmHour.value} : ${alarmMinutes.value}`;
     alarmHour.value = alarmMinutes.value = '';
     query('main').classList.add('on');
@@ -47,6 +53,7 @@ const alarmDisplay = query('span');
 const alarmMinutes = query('input[name=minute]');
 const alarmHour = query('input[name=hour]');
 const setButton = query('input[type=button]');
+const timeoutId = {};
 
 // Start
 listen(setButton, 'click', setAlarm);
