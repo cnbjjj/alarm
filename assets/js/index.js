@@ -22,7 +22,7 @@ function valid(input) {
 function error() {
     clearTimeout(timeoutId.error);
     timeoutId.error = setTimeout(() => query('.error').classList.remove('on'), 1500);
-    return query('.error').classList.add('on');
+    query('.error').classList.add('on');
 }
 function keyUp(event) {
     const element = event.target;
